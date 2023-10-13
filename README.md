@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| nickname           | string | null: false |
-| email              | string | null: false |
-| encrypted_password | string | null: false |
-| last_name          | string | null: false |
-| first_name         | string | null: false |
-| last_name_kana     | string | null: false |
-| first_name_kana    | string | null: false |
-| birth_day          | date   | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | -----------               |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| last_name_kana     | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birth_day          | date   | null: false               |
 
 ### Association
 
@@ -22,15 +22,18 @@
 
 ## items テーブル
 
-| Column       | Type   | Options                       |
-| -------------| ------ | ------------------------------|
-| name         | string | null: false                   |
-| price        | string | null: false                   |
-| image        | text   | null: false                   |
-| description  | string | null: false                   |
-| status       | string | null: false                   |
-| category_id  | integer| null: false, foreign_key: true|
-| user_id      | integer| null: false, foreign_key: true|
+| Column       | Type      | Options                       |
+| -------------| ----------| ------------------------------|
+| name         | string    | null: false                   |
+| price        | integer   | null: false                   |
+| description  | text      | null: false                   |
+| category     | references| null: false, foreign_key: true|
+| user         | references| null: false, foreign_key: true|
+| shopping_cost| references| null: false, foreign_key: true|
+| item_status  | references| null: false, foreign_key: true|
+| prefecture   | references| null: false, foreign_key: true|
+| shopping_date| references| null: false, foreign_key: true|
+
 
 ### Association
 
@@ -42,8 +45,8 @@
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
-| user_id| integer    | null: false, foreign_key: true |
-| item_id| string     | null: false                    |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false                    |
 
 ### Association
 
@@ -53,12 +56,15 @@
 
 ## buyers テーブル
 
-| Column      | Type    | Options                        |
-| ------------| --------| ------------------------------ |
-| post_code   | string  | null: false                    |
-| address     | string  | null: false                    |
-| phone_number| string  | null: false                    |
-| user_id     | integer | null: false, foreign_key: true |
+| Column      | Type      | Options                        |
+| ------------| --------  | ------------------------------ |
+| post_code   | string    | null: false                    |
+| city        | string    | null: false                    |
+| block       | string    | null: false                    |
+| building    | string    | null: false                    |
+| phone_number| integer   | null: false                    |
+| prefecture  |references | null: false, foreign_key: true |
+| order       |references | null: false, foreign_key: true |
 
 ### Association
 
