@@ -22,17 +22,17 @@
 
 ## items テーブル
 
-| Column       | Type      | Options                       |
-| -------------| ----------| ------------------------------|
-| name         | string    | null: false                   |
-| price        | integer   | null: false                   |
-| description  | text      | null: false                   |
-| category     | references| null: false, foreign_key: true|
-| user         | references| null: false, foreign_key: true|
-| shopping_cost| references| null: false, foreign_key: true|
-| item_status  | references| null: false, foreign_key: true|
-| prefecture   | references| null: false, foreign_key: true|
-| shopping_date| references| null: false, foreign_key: true|
+| Column          | Type      | Options                       |
+| -------------   | ----------| ------------------------------|
+| name            | string    | null: false                   |
+| price           | integer   | null: false                   |
+| description     | text      | null: false                   |
+| category_id     | integer   | null: false                   |
+| user            | references| null: false, foreign_key: true|
+| shopping_cost_id| integer   | null: false                   |
+| item_status_id  | integer   | null: false                   |
+| prefecture_id   | integer   | null: false                   |
+| shopping_date_id| integer   | null: false                   |
 
 
 ### Association
@@ -46,7 +46,7 @@
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
 | user   | references | null: false, foreign_key: true |
-| item   | references | null: false                    |
+| item   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -61,7 +61,7 @@
 | post_code   | string    | null: false                    |
 | city        | string    | null: false                    |
 | block       | string    | null: false                    |
-| building    | string    | null: false                    |
+| building    | string    |                                |
 | phone_number| integer   | null: false                    |
 | prefecture  |references | null: false, foreign_key: true |
 | order       |references | null: false, foreign_key: true |
