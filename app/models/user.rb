@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角カタカナで入力してください" }
   validates :birth_date, presence: true 
   validates :password, length: { minimum: 6 }  
-  validates :email, presence: true, format: { with: /@/ }
+  validates :email, presence: true, format: { with: /@/ }, uniqueness: true
   validates :password, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)/, message: "must include at least one letter and one digit" }
   validate :password_match
 
