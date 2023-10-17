@@ -40,7 +40,6 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to include("Email is invalid")
     end
     it 'パスワードが半角英数字混合でない場合は登録できない' do
-      # 半角英数字混合のパスワード
       user = User.new(nickname: 'test', email: 'test@example.com', password: 'pass123', password_confirmation: 'pass123')
       user.valid?
       expect(user.errors.full_messages).not_to include("Password must include both letters and numbers")
@@ -96,6 +95,13 @@ RSpec.describe User, type: :model do
       another_user = User.new(nickname: 'test', password: 'pass123', password_confirmation: 'pass123', email: 'acd@com', last_name: '田中', first_name: '太郎', last_name_kana: 'タナカ', first_name_kana: 'タロウ', birth_date: '1930-01-01')
       another_user.valid?
       expect(another_user.errors.full_messages).to include("Email has already been taken")
+    end
+    it 'nicknameが一意であること' do
+      user = User.new(nickname: 'test', password: 'pass123', password_confirmation: 'pass123', email: 'acd@com', last_name: '田中', first_name: '太郎', last_name_kana: 'タナカ', first_name_kana: 'タロウ', birth_date: '1930-01-01') 
+      user.save
+      another_user = User.new(nickname: 'test', password: 'pass123', password_confirmation: 'pass123', email: 'abcd@com', last_name: '田中', first_name: '太郎', last_name_kana: 'タナカ', first_name_kana: 'タロウ', birth_date: '1930-01-01')
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include("Nickname has already been taken")
     end
     end
   end 

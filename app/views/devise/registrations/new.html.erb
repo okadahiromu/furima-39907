@@ -11,7 +11,7 @@
   </div>
 
   <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
-  <% render 'shared/error_messages', model: f.object %>
+ <%= render 'shared/error_messages', model: f.object, attribute: :email %>
   <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
 
   <div class="form-group">
@@ -20,7 +20,7 @@
       <span class="indispensable">必須</span>
     </div>
     <%= f.text_area :nickname, class:"input-default", id:"nickname", placeholder:"例) furima太郎", maxlength:"40", value: @user.nickname %>
-    <%= render 'shared/error_messages', model: f.object, attribute: :nickname %>
+    
 
   </div>
   <div class="form-group">
@@ -29,7 +29,7 @@
       <span class="indispensable">必須</span>
     </div>
     <%= f.email_field :email, class:"input-default", id:"email", placeholder:"PC・携帯どちらでも可", autofocus: true, value: @user.email %>
-    <%= render 'shared/error_messages', model: f.object, attribute: :email %>
+    
   </div>
   <div class="form-group">
     <div class='form-text-wrap'>
