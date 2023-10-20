@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
       redirect_to root_path
     else
       Rails.logger.error(@item.errors.full_messages)  
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
