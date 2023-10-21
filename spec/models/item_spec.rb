@@ -3,8 +3,7 @@ require 'factory_bot'
 
 RSpec.describe Item, type: :model do
   before do
-    shopping_date = ShoppingDate.find_by(name: '1~2日で発送')
-    @item = FactoryBot.build(:item, shopping_date: shopping_date)
+    @item = FactoryBot.build(:item)
   end
 
   describe '商品出品登録' do
@@ -76,6 +75,40 @@ RSpec.describe Item, type: :model do
         @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")  
+      end
+      it "カテゴリーが '---' の場合は出品できないこと" do
+        @item.category_id = '---'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
+      it "商品の状態が '---' の場合は出品できないこと" do
+        @item.item_status_id = '---'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item status can't be blank")
+      end
+
+      it "配送料の負担が '---' の場合は出品できないこと" do
+        @item.shopping_cost_id = '---'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shopping cost can't be blank")
+      end
+
+      it "発送元の地域が '---' の場合は出品できないこと" do
+        @item.prefecture_id = '---'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
+      it "発送までの日数が '---' の場合は出品できないこと" do
+        @item.shopping_date_id = '---'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shopping date can't be blank")
+      end
+      it "userが紐付いていなければ出品できないこと" do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end

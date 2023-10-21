@@ -16,9 +16,11 @@ class Item < ApplicationRecord
   validates :item_status_id, presence: true
   validates :shopping_cost_id, presence: true
   validates :prefecture_id, presence: true
-  validates :shopping_date, presence: true
-  # validates :image_attached
+  validates :shopping_date_id, presence: true
   validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
-
   validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :item_status_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :shopping_date_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :shopping_cost_id, numericality: { other_than: 1 , message: "can't be blank"}
 end

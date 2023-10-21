@@ -4,9 +4,9 @@ FactoryBot.define do
     description { "This is an example item." }  
     category_id { 2 }  
     item_status_id { 3 } 
-    shopping_cost_id { 1 }  
+    shopping_cost_id { 2 }  
     prefecture_id { 5 }  
-    shopping_date { "1-2 days" } 
+    shopping_date_id { 2 } 
     price { 1000 } 
     association :user
   end
