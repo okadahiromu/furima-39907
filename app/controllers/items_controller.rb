@@ -34,6 +34,11 @@ class ItemsController < ApplicationController
     @item = Item.includes(:user).find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+    render :edit
+  end
+
   private
 
   def item_params
