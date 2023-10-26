@@ -1,6 +1,6 @@
 class OrderBuyer
   include ActiveModel::Model
-  attr_accessor :post_code, :city, :block, :building, :phone_number, :prefecture, :order_id, :user_id, :item_id, :prefecture_id
+  attr_accessor :post_code, :city, :block, :building, :phone_number, :prefecture, :order_id, :user_id, :item_id, :prefecture_id, :token
   
   with_options presence: true do
     validates :user_id
@@ -9,10 +9,11 @@ class OrderBuyer
     validates :block
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "は10桁以上11桁以内の半角数字で入力してください" }
     validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
+    validates :token
   end
   
   def save
     order = Order.create(item_id: item_id, user_id: user_id)
-    Buyer.create(post_code: post_code, city: city, block: block, building: building, phone_number: phone_number, prefecture_id: prefecture_id)
+    buyer = Buyer.create(post_code: post_code, city: city, block: block, building: building, phone_number: phone_number, prefecture_id: prefecture_id)
   end
 end
