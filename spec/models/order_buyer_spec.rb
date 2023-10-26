@@ -42,6 +42,11 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it "都道府県が 1 の場合は出品できないこと" do
+        @order_buyer.prefecture_id = 1
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it '市区町村が必須であること' do
         @order_buyer.city = nil
         @order_buyer.valid?
