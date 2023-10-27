@@ -63,19 +63,24 @@ RSpec.describe OrderBuyer, type: :model do
         expect(@order_buyer.errors.full_messages).to include("Phone number can't be blank")
       end
       it '電話番号は、10桁以上11桁以内の半角数値のみ保存可能なこと' do
-        @order_buyer.phone_number = '123456789' # 9桁の電話番号（不正な形式）
+        @order_buyer.phone_number = '123456789'
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Phone number は10桁以上11桁以内の半角数字で入力してください")
       end
       it '電話番号は、10桁以上11桁以内の半角数値のみ保存可能なこと' do
-        @order_buyer.phone_number = '123456789999' # 11桁の電話番号（不正な形式）
+        @order_buyer.phone_number = '123456789999' 
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Phone number は10桁以上11桁以内の半角数字で入力してください")
       end
       it '電話番号は、10桁以上11桁以内の半角数値のみ保存可能なこと' do
-        @order_buyer.phone_number = '123-456-7890' # ハイフンを含む場合（不正な形式）
+        @order_buyer.phone_number = '123-456-7890' 
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Phone number は10桁以上11桁以内の半角数字で入力してください")
+      end
+      it 'クレジットカード情報は必須であること' do
+        @order_buyer.token = nil 
+        @order_buyer.valid? 
+        expect(@order_buyer.errors.full_messages).to include("Token can't be blank")
       end
       
     end
