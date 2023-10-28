@@ -35,8 +35,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user == @item.user
-     
+    @item = Item.find(params[:id])
+
+    if current_user == @item.user && !Order.exists?(item_id: @item.id) 
+      render :edit
     else
       redirect_to root_path
     end

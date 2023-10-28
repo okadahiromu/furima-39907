@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :check_access, only: [:new, :index]
+
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -39,5 +41,13 @@ class OrdersController < ApplicationController
           card: order_params[:token],    
           currency: 'jpy'                 
         )
+  end
+
+  def check_access
+    @item = Item.find(params[:item_id])
+  
+    if !user_signed_in? || current_user == @item.user || Order.exists?(item_id: @item.id)
+      redirect_to user_signed_in? ? root_path : new_user_session_path
+    end
   end
 end
