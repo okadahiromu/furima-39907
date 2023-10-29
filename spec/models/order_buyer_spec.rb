@@ -82,6 +82,16 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.valid? 
         expect(@order_buyer.errors.full_messages).to include("Token can't be blank")
       end
+      it "userが紐付いていなければ出品できないこと" do
+        @order_buyer.user_id = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("User can't be blank")
+      end
+      it "itemが紐付いていなければ出品できないこと" do
+        @order_buyer.item_id = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Item can't be blank")
+      end
       
     end
   end

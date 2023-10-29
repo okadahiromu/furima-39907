@@ -1,10 +1,9 @@
 class OrdersController < ApplicationController
   before_action :check_access, only: [:new, :index]
-
+  before_action :set_item, only: [:index :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
     @order_buyer = OrderBuyer.new
     @orders = Order.where(user_id: current_user.id)
     render :index
@@ -16,7 +15,6 @@ class OrdersController < ApplicationController
 
   def create
     @order_buyer = OrderBuyer.new(order_params)
-    @item = Item.find(params[:item_id])
 
     if @order_buyer.valid?
       pay_item
@@ -49,5 +47,9 @@ class OrdersController < ApplicationController
     if !user_signed_in? || current_user == @item.user || Order.exists?(item_id: @item.id)
       redirect_to user_signed_in? ? root_path : new_user_session_path
     end
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
