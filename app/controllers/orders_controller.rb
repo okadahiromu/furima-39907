@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :check_access, only: [:new, :index]
+  before_action :check_access, only: [:index]
   before_action :set_item, only: [:index :create]
 
   def index
@@ -7,10 +7,6 @@ class OrdersController < ApplicationController
     @order_buyer = OrderBuyer.new
     @orders = Order.where(user_id: current_user.id)
     render :index
-  end
-
-  def new
-    @order_buyer = OrderBuyer.new
   end
 
   def create

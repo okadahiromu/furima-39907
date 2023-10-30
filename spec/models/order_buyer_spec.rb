@@ -5,7 +5,8 @@ RSpec.describe OrderBuyer, type: :model do
   describe '商品購入登録' do
     before do
       user = FactoryBot.create(:user)
-      @order_buyer = FactoryBot.build(:order_buyer, user_id: user.id)
+      item = FactoryBot.create(:item)
+      @order_buyer = FactoryBot.build(:order_buyer, user_id: user.id, item_id: item.id) 
     end
 
     context '内容に問題ない場合' do
