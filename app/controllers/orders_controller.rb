@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :check_access, only: [:index]
-  before_action :set_item, only: [:index :create]
+  before_action :set_item, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
