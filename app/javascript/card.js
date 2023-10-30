@@ -1,4 +1,7 @@
+let isPayjpInitialized = false;
+
 const pay = () => {
+  if (typeof gon !== "undefined" && gon.public_key) {
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey) 
   const elements = payjp.elements();
@@ -9,6 +12,7 @@ const pay = () => {
   numberElement.mount('#number-form');
   expiryElement.mount('#expiry-form');
   cvcElement.mount('#cvc-form');
+
   const form = document.getElementById('charge-form')
   form.addEventListener("submit", (e) => {
     payjp.createToken(numberElement).then(function (response) {
@@ -26,6 +30,9 @@ const pay = () => {
     });
     e.preventDefault();
   });
+
+  isPayjpInitialized = true;
+  }
 };
 
 window.addEventListener("turbo:load", pay);
